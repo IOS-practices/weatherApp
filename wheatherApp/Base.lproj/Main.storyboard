@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Search History" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AyQ-oH-4by">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search History" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AyQ-oH-4by">
                                 <rect key="frame" x="0.0" y="50" width="414" height="40"/>
                                 <color key="backgroundColor" systemColor="linkColor"/>
                                 <constraints>
@@ -38,7 +38,7 @@
                         <viewLayoutGuide key="safeArea" id="A9w-wY-fxA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="AyQ-oH-4by" firstAttribute="top" secondItem="S1g-cG-GVC" secondAttribute="top" constant="57" id="CjN-3a-vhA"/>
+                            <constraint firstItem="AyQ-oH-4by" firstAttribute="top" secondItem="S1g-cG-GVC" secondAttribute="top" constant="50" id="CjN-3a-vhA"/>
                             <constraint firstItem="A9w-wY-fxA" firstAttribute="trailing" secondItem="MNP-3g-osO" secondAttribute="trailing" id="H1n-N1-Vzc"/>
                             <constraint firstItem="MNP-3g-osO" firstAttribute="top" secondItem="pzZ-Jh-dv9" secondAttribute="bottom" id="Uky-Iy-zxc"/>
                             <constraint firstItem="pzZ-Jh-dv9" firstAttribute="leading" secondItem="S1g-cG-GVC" secondAttribute="leading" id="Xu9-Zh-f7c"/>
@@ -47,7 +47,7 @@
                             <constraint firstItem="A9w-wY-fxA" firstAttribute="trailing" secondItem="pzZ-Jh-dv9" secondAttribute="trailing" id="vnk-4X-XVR"/>
                             <constraint firstItem="MNP-3g-osO" firstAttribute="leading" secondItem="A9w-wY-fxA" secondAttribute="leading" id="wXh-aj-gsN"/>
                             <constraint firstAttribute="trailing" secondItem="AyQ-oH-4by" secondAttribute="trailing" id="yaY-I7-AjX"/>
-                            <constraint firstItem="pzZ-Jh-dv9" firstAttribute="top" secondItem="AyQ-oH-4by" secondAttribute="bottom" id="zRb-9K-XpG"/>
+                            <constraint firstItem="pzZ-Jh-dv9" firstAttribute="top" secondItem="AyQ-oH-4by" secondAttribute="bottom" constant="7" id="zRb-9K-XpG"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="History" image="folder" catalog="system" id="fRv-rG-HJ0"/>

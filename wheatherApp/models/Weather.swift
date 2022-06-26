@@ -1,39 +1,62 @@
 
 import Foundation
 
-struct Weather: Decodable{
-    let name: String
-    let temp: Main
-    let description: WeatherDescription
-    
-    enum CodingKeys: String, CodingKey{
-        case name
-        case temp
-        case description
-    }
-}
 
+// MARK: - Main
 struct WeatherList: Decodable{
-    let list: Weather
+    let count: Int
+    let list: [list]
     
     enum CodingKeys: String, CodingKey{
+        case count
         case list
     }
-    
 }
 
-struct Main: Decodable{
-    let temp: Int
+// MARK: - List
+struct list: Decodable{
+    let id: Int
+    let name: String
+    let temp: Main
+    let sys: Sys
+    let weather: [Weather]
     
     enum CodingKeys: String, CodingKey{
+        case id
+        case name
         case temp
+        case sys
+        case weather
     }
 }
 
-struct WeatherDescription: Decodable {
-    let description: String
+// MARK: - Main
+struct Main: Decodable{
+    let temp, feelsLike, tempMin, tempMax: Double
+    let pressure, humidity: Int
     
     enum CodingKeys: String, CodingKey{
-        case description
+        case temp
+        case feelsLike = "feels_like"
+        case tempMin = "temp_min"
+        case tempMax = "temp_max"
+        case pressure, humidity
+    }
+}
+
+// MARK: - Sys
+struct Sys: Decodable{
+    let country: String
+}
+
+// MARK: - Weather
+struct Weather: Decodable {
+    let id: Int
+    let main, weatherDescription, icon: String
+
+    enum CodingKeys: String, CodingKey {
+        case id, main
+        case weatherDescription = "description"
+        case icon
     }
 }

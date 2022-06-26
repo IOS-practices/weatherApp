@@ -9,7 +9,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var weatherItem = [Weather]()
+    var weatherItem = [list]()
+    var weatherItemSearched = [list]()
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -23,30 +24,22 @@ class ViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
+                
+        searchBar.delegate = self
+        searchBar.showsCancelButton = true
         
-        //searchBar.dataSource = self
-        //searchbbbbbdBar.delegate = self
+        collectionView.register(UINib(nibName:"WeatherCollectionViewCell", bundle:nil), forCellWithReuseIdentifier: weatherCellIdentifier)        
         
-       /*let uiNib = UINib(nibName: "WeatherCollectionViewCell", bundle: nil)
-        collectionView.register(uiNib, forCellWithReuseIdentifier:  weatherCellIdentifier)*/
-        
-        collectionView.register(UINib(nibName:"WeatherCollectionViewCell", bundle:nil), forCellWithReuseIdentifier: weatherCellIdentifier)
-        
-        loadData(URL: "https://openweathermap.org/data/2.5/find?appid=439d4b804bc8187953eb36d2a8c26a02&q=oruro") { result in
-                   self.weatherItem = result
-                   DispatchQueue.main.async {
-                       self.collectionView.reloadData()
-                   }
-        }
     }
     
+    /*
     func loadData(URL url:String, completion: @escaping ([Weather]) -> Void) {
                 
                 let url = URL(string: url)
                 let session = URLSession.shared
                 
                 let dataTask = session.dataTask(with: url!) { weatherItem, response, error in
-                    if weatherItem != nil && error == nil{
+                    if weatherItem != nil && error == nil {
                         do {
                         let parsingData = try JSONDecoder().decode([Weather].self, from: weatherItem!)
                             completion(parsingData)
@@ -56,25 +49,86 @@ class ViewController: UIViewController {
                     }
                 }
                 dataTask.resume()
+    }*/
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    func getWeatherData(withText: String){
+            guard let url = URL(string:UrlManager.instance.urlWeather(text: withText)) else { return }
+            
+            NetworkManager.shared.get(WeatherList.self, from: url) { result in
+                switch result {
+                    case .success(let data):
+                    self.weatherItemSearched = data.list
+                        self.collectionView.reloadData()
+                    
+                    case .failure(let error):
+                        print(error)
+                        print("Here")
+                    
+                    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                 print("OK")
+                             }))
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
+        }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
 
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate{
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        return weatherItemSearched.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherCollectionViewCell", for: indexPath) as? WeatherCollectionViewCell else {return UICollectionViewCell()}
         
+        let list = weatherItemSearched[indexPath.row]
+        let weather = weatherItemSearched[indexPath.row].weather[0]
+        let temp = weatherItemSearched[indexPath.row].temp
+        
         //cell.cityNameWeather.text = weatherItem[indexPath.row].name
-        cell.cityNameWeather.text = "Oruro"
-        cell.descriptionWeather.text = "Clear Sky"
-        cell.temperatureWeather.text = "12 C"
+        cell.cityNameWeather.text = list.name
+        cell.descriptionWeather.text = weather.weatherDescription
+        cell.temperatureWeather.text = "\(temp.temp) K"
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        //let vc = WeatherDetailViewController()
+        //vc.
     }
     
     /*func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
