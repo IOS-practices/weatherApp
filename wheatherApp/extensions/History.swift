@@ -18,8 +18,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource{
                 dateFormatter.dateFormat = "d MMM yyyy"
                 let newdate = dateFormatter.string(from: datefor)
                 cell.dateLabel.text = newdate
-            }
-            
+            }            
                 return cell
             }
         
