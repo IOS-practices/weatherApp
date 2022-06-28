@@ -12,11 +12,11 @@ class WeatherCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var weatherImage: UIImageView!
         
-    @IBOutlet weak var cityNameWeather: UILabel!
+    @IBOutlet weak var cityNameWeatherLabel: UILabel!
     
-    @IBOutlet weak var descriptionWeather: UILabel!
+    @IBOutlet weak var descriptionWeatherLabel: UILabel!
         
-    @IBOutlet weak var temperatureWeather: UILabel!
+    @IBOutlet weak var temperatureWeatherLabel: UILabel!
     
     
     override func awakeFromNib() {

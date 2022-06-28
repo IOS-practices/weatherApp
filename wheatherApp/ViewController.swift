@@ -1,16 +1,9 @@
-//
-//  ViewController.swift
-//  wheatherApp
-//
-//  Created by admin on 6/22/22.
-//
-
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
 
-    var weatherItem = [list]()
-    var weatherItemSearched = [list]()
+    var weatherItemSearched: [List] = []
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -19,7 +12,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -28,57 +20,28 @@ class ViewController: UIViewController {
         searchBar.delegate = self
         searchBar.showsCancelButton = true
         
-        collectionView.register(UINib(nibName:"WeatherCollectionViewCell", bundle:nil), forCellWithReuseIdentifier: weatherCellIdentifier)        
+        
+        let uiNib = UINib(nibName: "WeatherCollectionViewCell", bundle: nil)
+        collectionView.register(uiNib, forCellWithReuseIdentifier: weatherCellIdentifier)
         
     }
     
-    /*
-    func loadData(URL url:String, completion: @escaping ([Weather]) -> Void) {
-                
-                let url = URL(string: url)
-                let session = URLSession.shared
-                
-                let dataTask = session.dataTask(with: url!) { weatherItem, response, error in
-                    if weatherItem != nil && error == nil {
-                        do {
-                        let parsingData = try JSONDecoder().decode([Weather].self, from: weatherItem!)
-                            completion(parsingData)
-                        }catch {
-                            print ("Parsing error")
-                        }
-                    }
-                }
-                dataTask.resume()
-    }*/
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    func getWeatherData(withText: String){
+    func loadWeatherData(withText: String){
             guard let url = URL(string:UrlManager.instance.urlWeather(text: withText)) else { return }
             
             NetworkManager.shared.get(WeatherList.self, from: url) { result in
                 switch result {
                     case .success(let data):
-                    self.weatherItemSearched = data.list
+                    self.weatherItemSearched = data.List
                         self.collectionView.reloadData()
+                        print("success")
                     
                     case .failure(let error):
                         print(error)
-                        print("Here")
+                        print("failure")
                     
-                    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Error", message: "Something went wrong. Please, try again", preferredStyle: .alert)
                                  alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
                                  print("OK")
                              }))
@@ -87,18 +50,26 @@ class ViewController: UIViewController {
             }
         }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    func saveHistory(withIndex: Int, withName: String) {
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            let context = appDelegate.persistentContainer.viewContext
+            
+            guard let entity = NSEntityDescription.entity(forEntityName: "WeatherEntry", in: context) else { return }
+            guard let history = NSManagedObject(entity: entity, insertInto: context) as? WeatherEntry else { return }
+            
+            history.date = Date()
+            history.id = Int16.random(in: 1...1000)
+            history.name = withName
+            history.positionList = Int16(withIndex)            
+            
+            do {
+                try context.save()
+                print("Ready")
+                
+            } catch(let error) {
+                print("Error", error)
+            }
+        }
     
     
 }
@@ -113,39 +84,36 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate{
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherCollectionViewCell", for: indexPath) as? WeatherCollectionViewCell else {return UICollectionViewCell()}
         
-        let list = weatherItemSearched[indexPath.row]
+        let cityname = weatherItemSearched[indexPath.row].name
         let weather = weatherItemSearched[indexPath.row].weather[0]
-        let temp = weatherItemSearched[indexPath.row].temp
+        let temp = weatherItemSearched[indexPath.row].main
+        let countryName = weatherItemSearched[indexPath.row].sys
         
-        //cell.cityNameWeather.text = weatherItem[indexPath.row].name
-        cell.cityNameWeather.text = list.name
-        cell.descriptionWeather.text = weather.weatherDescription
-        cell.temperatureWeather.text = "\(temp.temp) K"
+        
+        cell.cityNameWeatherLabel.text = "\(cityname), \(countryName.country)"
+        cell.descriptionWeatherLabel.text = "Weather: \(weather.description)"
+        print(countryName.country)
+        print(weather.description)
+        cell.temperatureWeatherLabel.text = "Temperature: \(temp.temp) K"
+        
+        if let url = URL(string: "https://openweathermap.org/img/wn/\(weatherItemSearched[indexPath.row].weather[0].icon)@2x.png") {
+            cell.weatherImage.image = ImageManager.shared.loadFromUrl(urlWeather: url)
+                }
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        //let vc = WeatherDetailViewController()
-        //vc.
     }
     
-    /*func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        performSegue(withIdentifier: "GoToDetailFromCity", sender: nil)
-        
-        let destination = segue.destination as? DetailViewController else { return }
-    }*/
-    
-        
     
 }
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width / 1
-        let height = collectionView.frame.width / 6
+        let height = collectionView.frame.width / 3
         return CGSize(width: width, height: height)
     }
 }

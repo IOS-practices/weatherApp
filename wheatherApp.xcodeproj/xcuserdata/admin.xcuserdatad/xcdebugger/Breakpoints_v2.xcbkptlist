@@ -3,32 +3,4 @@
    uuid = "1D1BFF36-E9A4-418F-870D-27AF17E88F44"
    type = "1"
    version = "2.0">
-   <Breakpoints>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6568ED46-3ACA-4F30-802D-8400C7906D31"
-            shouldBeEnabled = "No"
-            nameForDebugger = "libnetwork.dylib"
-            condition = "__boringssl_log_open_block_invoke"
-            ignoreCount = "0"
-            continueAfterRunningActions = "Yes"
-            filePath = "wheatherApp/managers/NetworkManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "get(_:from:completion:)"
-            landmarkType = "7">
-            <Actions>
-               <BreakpointActionProxy
-                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
-                  <ActionContent
-                     consoleCommand = "thread return">
-                  </ActionContent>
-               </BreakpointActionProxy>
-            </Actions>
-         </BreakpointContent>
-      </BreakpointProxy>
-   </Breakpoints>
 </Bucket>

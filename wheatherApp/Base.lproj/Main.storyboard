@@ -52,6 +52,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="History" image="folder" catalog="system" id="fRv-rG-HJ0"/>
                     <connections>
+                        <outlet property="tableView" destination="MNP-3g-osO" id="bdv-GL-3Da"/>
                         <segue destination="SsM-vr-LCu" kind="show" identifier="GoToDetailFromHistory" id="tkQ-Qi-Ffh"/>
                     </connections>
                 </viewController>
@@ -69,7 +70,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="q9x-FR-AWr">
                                 <rect key="frame" x="0.0" y="148" width="414" height="665"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" red="0.77202363177191868" green="0.8834873818301795" blue="0.91752577319999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bni-SK-HLn">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -92,7 +93,7 @@
                             </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bCc-FN-keI"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1yZ-AV-B9w" firstAttribute="trailing" secondItem="Ifn-UO-cJU" secondAttribute="trailing" id="0A0-9D-7wx"/>
                             <constraint firstItem="Ifn-UO-cJU" firstAttribute="top" secondItem="1yZ-AV-B9w" secondAttribute="bottom" constant="7" id="0H9-FP-MdG"/>
@@ -107,7 +108,9 @@
                             <constraint firstItem="1yZ-AV-B9w" firstAttribute="leading" secondItem="Ifn-UO-cJU" secondAttribute="leading" id="zB2-an-URy"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="5TI-Ka-9aQ"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="5TI-Ka-9aQ">
+                        <color key="badgeColor" systemColor="tintColor"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="collectionView" destination="q9x-FR-AWr" id="949-To-Dzn"/>
                         <outlet property="searchBar" destination="Ifn-UO-cJU" id="dni-1T-W6K"/>
@@ -127,6 +130,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" systemColor="tintColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="may-0O-npE" kind="relationship" relationship="viewControllers" id="472-p0-FA6"/>
@@ -181,6 +186,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
