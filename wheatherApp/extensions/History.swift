@@ -7,16 +7,21 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource{
            return history.count 
        }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell") as? HistoryTableViewCell ?? HistoryTableViewCell()
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryTableViewCell") as? HistoryTableViewCell ?? HistoryTableViewCell()
+                            
+            let historialRecord = history[indexPath.row]
+            cell.countrynameLabel.text = historialRecord.name
             
-            let historyData = history[indexPath.row]
-            cell.countrynameLabel.text = historyData.name
+            if let datefor = historialRecord.date {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "d MMM yyyy"
+                let newdate = dateFormatter.string(from: datefor)
+                cell.dateLabel.text = newdate
+            }
             
-            
-            
-            return cell
-        }
+                return cell
+            }
         
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             let history = history[indexPath.row]
@@ -24,7 +29,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource{
             
             guard let name = history.name else { return }
             let index = Int(history.positionList)
-            getWeatherData(withText: name, withIndex: index)
+            loadWeatherData(withText: name, withIndex: index)
         }   
     
 }

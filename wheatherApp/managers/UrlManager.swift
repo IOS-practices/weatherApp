@@ -8,5 +8,19 @@ class UrlManager {
         return urlWeatherStr
     }
     
+    func urlWeatherImage(text: String) -> String {
+        let urlStr = "https://openweathermap.org/img/wn/\(text)@2x.png"
+        return urlStr
+    }
+    
+    func urlFlag(text: String) -> String {
+        let urlStr = "https://countryflagsapi.com/png/\(text)"
+        return urlStr
+    }
+    
+    
+    
+    
+    
 }
 

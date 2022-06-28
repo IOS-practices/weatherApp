@@ -1,11 +1,3 @@
-//
-//  WeatherEntry+CoreDataProperties.swift
-//  wheatherApp
-//
-//  Created by admin on 6/28/22.
-//
-//
-
 import Foundation
 import CoreData
 

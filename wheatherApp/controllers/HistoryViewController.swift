@@ -9,7 +9,7 @@ class HistoryViewController: UIViewController {
        var historyList: [List] = []
        var availableAssets: PHFetchResult<PHAsset>?
        
-    public let historyIdentifier = "HistoryCell"
+    public let historyIdentifier = "HistoryTableViewCell"
     
        override func viewDidLoad() {
            super.viewDidLoad()
@@ -36,13 +36,14 @@ class HistoryViewController: UIViewController {
 
            do {
                history = try context.fetch(fetchRequest)
+               history = history.sorted(by: { $0.date?.compare($1.date!) == .orderedDescending })
                tableView.reloadData()
            } catch(let err) {
                print("Error", err)
            }
        }
        
-       func getWeatherData(withText: String, withIndex: Int) {
+       func loadWeatherData(withText: String, withIndex: Int) {
            
            guard let url = URL(string:UrlManager.instance.urlWeather(text: withText)) else { return }
                    
@@ -53,6 +54,12 @@ class HistoryViewController: UIViewController {
                                self.gotoDetail(withhistory: self.historyList[withIndex])
                            case .failure(let error):
                                print(error)
+                           let alert = UIAlertController(title: "Error", message: "Something went wrong. Please, try again", preferredStyle: .alert)
+                           
+                                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { action in
+                                print("OK")
+                                                        }))
+                                self.present(alert, animated: true, completion: nil)
                        }
                    }
        }

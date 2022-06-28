@@ -1,10 +1,3 @@
-//
-//  WeatherCollectionViewCell.swift
-//  wheatherApp
-//
-//  Created by admin on 6/23/22.
-//
-
 import UIKit
 
 class WeatherCollectionViewCell: UICollectionViewCell {

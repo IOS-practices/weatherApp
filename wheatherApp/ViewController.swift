@@ -84,6 +84,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate{
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherCollectionViewCell", for: indexPath) as? WeatherCollectionViewCell else {return UICollectionViewCell()}
         
+        
         let cityname = weatherItemSearched[indexPath.row].name
         let weather = weatherItemSearched[indexPath.row].weather[0]
         let temp = weatherItemSearched[indexPath.row].main
@@ -95,16 +96,22 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate{
         print(countryName.country)
         print(weather.description)
         cell.temperatureWeatherLabel.text = "Temperature: \(temp.temp) K"
-        
+            
         if let url = URL(string: "https://openweathermap.org/img/wn/\(weatherItemSearched[indexPath.row].weather[0].icon)@2x.png") {
-            cell.weatherImage.image = ImageManager.shared.loadFromUrl(urlWeather: url)
-                }
+                    cell.weatherImage.image = ImageManager.shared.loadFromUrl(urlWeather: url)
+        }
         
         return cell
     }
     
+    // GoToWeatherDetail
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let Detail = WeatherDetailViewController()
+        let list = weatherItemSearched[indexPath.row]
+        Detail.weatherDetail = list
         
+        saveHistory(withIndex: indexPath.row, withName: list.name)
+        show(Detail, sender: nil)
     }
     
     
